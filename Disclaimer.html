@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artyom Casino</title>
+    <style>
+        * {
+           padding: 0;
+           margin: 0;
+        }
+
+        /* --- 1. EASY EDIT ZONE: Change colors/sizes here --- */
+        :root {
+            transition: all 0.3s ease-in;
+            background-color: #1a1a1a;
+            --box-color: #222;
+            --text-color: #fff;
+            --accent-color: crimson; /* Button color */
+            --slot-border: gold;
+            --slot-bg: #fff;
+            --slot-text: #000;
+        }
+
+        /* --- 2. Standard CSS --- */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .machine-container {
+            border: 4px solid #444;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: var(--box-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            width: 500px;
+        }
+
+        .slots {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #666;
+            justify-content: center;
+        }
+
+        .reel {
+            font-size: 60px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--slot-bg);
+            color: var(--slot-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 3px solid var(--slot-border);
+        }
+
+        #message {
+            font-size: 18px;
+            min-height: 60px;
+            margin-bottom: 20px;
+            color: #bbb;
+            white-space: pre-wrap; 
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%; /* Makes button fill the container width */
+            margin-left: 50px;
+        }
+
+        .slot-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        button:hover { filter: brightness(1.2); }
+        button:active { transform: scale(0.98); }
+
+        .tickets {
+            width: 80px;
+            height: 80px;
+        }
+
+        .tickets-counter {
+            width: 250px;
+            display: flex;
+            align-self: flex-end;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #tickets-multiplier {
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0 20%;
+            padding-top: 10%;
+            position: relative;
+        }
+
+        .store {
+            position: absolute;
+            background-color: #777;
+            border-radius: 15px;
+            height: 500px;
+            width: 40%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: scroll;
+            z-index: 20;
+        }
+
+        .store-title {
+            margin-top: 25px;
+            display: inline-block;
+            /* justify-self: center; */
+        }
+
+        .Purchase-button {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .close-button {
+            color: red;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            display: inline-block;
+            position: absolute;
+            right: 25px;
+            top: 25px;
+        }
+
+        .store-header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            background-color: #777;
+            z-index: 10;
+        }
+
+        .purchase-container {
+            display: block;
+        }
+
+        .outer-purchase-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+            margin-bottom: 30px;
+        }
+
+        .version-container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: absolute;
+            bottom: 0;
+            padding: 10px 20px 0;
+            box-sizing: border-box;
+        }
+
+        .store-icon {
+            width: 100px;
+            left: -5px;
+            position: relative;
+            filter: invert(100%);
+        }
+
+        .store-button-container {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            justify-content: flex-start;
+        }
+
+        #storeButton {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between
+        }
+
+        .build-container {
+            display: block;
+        }
+
+        #patch-notes {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            text-align: end;
+        }
+
+        .version {
+            display: block;
+        }
+
+        .feature {
+            text-align: start;
+            font-size: 25px;
+        }
+
+        .title {
+            margin-bottom: 10px;
+            color: red;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            margin-bottom: 50px;
+        }
+
+        #subtitle-version {
+            font-size: 35px;
+        }
+
+        .home-button {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            align-self: flex-start;
+            background-color: #444;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            color: red;
+        }
+
+        .checkbox-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        #checkbox {
+            margin-right: 15px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        #proceedButton {
+            text-decoration: none;
+            color: #fff;
+            background-color: #777;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .disclaimer {
+            overflow-y: scroll;
+            height: 50%;
+        }
+
+        .checkbox-text {
+            cursor: pointer;
+        }
+
+        /* Special class for winning text */
+        .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1 class="title">Disclaimer</h1>
+        <p class="disclaimer">Artyom's Casino: Official Legal Disclaimer & Terms of Use<br><br>
+-----------------------<br><br>            
+1. General Purpose and Educational Scope<br>
+Welcome to Artyom’s Casino. Please read this disclaimer carefully before interacting with this website. This website is a strictly non-commercial, educational demonstration created exclusively as a school project. It is not a registered business, it does not hold any gaming licenses, and it is not operated by a commercial entity. By accessing, browsing, or using this website, you acknowledge and agree that the platform is intended solely for academic grading, portfolio demonstration, and web development practice.<br>
+<br>
+2. Strictly No Real Money Gambling<br>
+Artyom's Casino does not offer "real money gambling" or an opportunity to win real money or prizes. Under no circumstances can users deposit, wager, or withdraw real-world fiat currency, cryptocurrency, or any other items of actual financial value. This platform operates entirely outside the scope of real-world gambling legislation because it is fundamentally a simulation.<br>
+<br>
+3. Virtual Currency and Account Balances<br> 
+Any "credits," "coins," "chips," "tokens," "jackpots," or "winnings" displayed within the games, slot machines, or user dashboards on this site are entirely fictitious. They possess absolutely no real-world value and cannot be exchanged, redeemed, traded, or cashed out for real money, goods, or services under any circumstances. Virtual balances are provided simply to simulate the mechanical functionality of casino games for the purpose of the project. If your virtual balance reaches zero, no real-world financial loss has occurred, and if you hit a virtual jackpot, no real-world financial gain has been achieved.<br>
+<br>
+4. No Promotion of Real-World Gambling<br>
+This website does not endorse, encourage, or promote participation in real-world gambling activities. The theme of a casino was chosen strictly for the purpose of demonstrating interactive programming, random number generation, logic implementation, and user interface design (UI/UX). Success, winning streaks, or high scores achieved within the simulated games on Artyom's Casino do not imply or guarantee future success at real-money gambling or real-world casinos. Real casino games are mathematically designed with a house edge, and the algorithms used in this school project may not reflect the actual odds, volatility, or mechanics of commercially regulated slot machines.<br>
+<br>
+5. Limitation of Liability and "As-Is" Provision<br>
+Because this website is an academic project, it is provided on an "as-is" and "as-available" basis without any warranties of any kind, either express or implied. The developer(s) of Artyom's Casino shall not be held liable for any bugs, glitches, data loss, browser crashes, or technical issues that may arise from interacting with the site. User data (if any is collected, such as local storage for saving a high score) is not guaranteed to be secure or permanent.<br>
+<br>
+6. Responsible Gaming and Real-World Resources<br>
+While absolutely no real money is involved on this educational website, we recognize that problem gambling is a serious issue in the real world. If you or someone you know is struggling with a gambling addiction, we encourage you to seek professional help. There are numerous free, confidential resources and hotlines available globally to assist individuals affected by gambling-related harm.<br>
+<br>
+7. Intellectual Property and Fictional Design<br>
+This project is a fictional creation. Any similarities between the aesthetics, themes, or naming conventions of Artyom's Casino and any real-world entities are completely coincidental. Any third-party images or graphical assets used within this project are for educational demonstration purposes only under fair use, and no copyright infringement is intended. <br>
+<br>
+8. Acceptance of Terms<br>
+By clicking "Accept," closing this pop-up, or continuing to use Artyom's Casino, you confirm that you have read, understood, and agreed to this disclaimer. You acknowledge that you are participating in a risk-free, educational simulation and that no real money transactions will take place.<br>
+<br>
+This website is a work of fiction. Names, characters, businesses, places, events, locales, and incidents are either the products of the creator's imagination or used in a fictitious manner. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.</p>
+        <div class="checkbox-container">
+            <input type="checkbox" id="checkbox">
+            <a class="checkbox-text" onclick="tickBox()">I understand</a>
+        </div>
+        <a href="#" id="proceedButton" onclick="proceed()">Proceed</a>
+    </div>
+
+    <div class="version-container">
+        <p class="version" id="version">Error -1</p>
+        <div class="build-container">
+            <a href="#" id="patch-notes">Patch notes</a>
+            <p class="version build" id="build">Error -1</p>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        // Change this to make the numbers spin faster/slower (in milliseconds)
+        const SPIN_SPEED = 50; 
+        const build = "build a26R226C"
+        const version = "Artyom's Casino v0.4.1a"
+        
+        
+        // --- STATE VARIABLES ---
+        let isSpinning = false;
+        let spinTimer = null; // This holds the "interval" ID
+        let ticketsAmount = 10;
+        let storeOpen = true;
+        // let gasinoActive = false;
+        
+        // HTML Elements (Grabbed once to keep code clean)
+        const reel1 = document.getElementById("reel1");
+        const reel2 = document.getElementById("reel2");
+        const reel3 = document.getElementById("reel3");
+        const messageEl = document.getElementById("message");
+        const buttonEl = document.getElementById("actionBtn");
+        const ticketsMultiplier = document.getElementById("tickets-multiplier");
+        const pur1btn = document.getElementById("Purchase-1-ticket");
+        const pur5btn = document.getElementById("Purchase-5-tickets");
+        const pur10btn = document.getElementById("Purchase-10-tickets");
+        const pur50btn = document.getElementById("Purchase-50-tickets");
+        const pur100btn = document.getElementById("Purchase-100-tickets");
+        const pur250btn = document.getElementById("Purchase-250-tickets");
+        const pur500btn = document.getElementById("Purchase-500-tickets");
+        const pur1000btn = document.getElementById("Purchase-1000-tickets");
+        const pur5000btn = document.getElementById("Purchase-5000-tickets");
+        const pur10000btn = document.getElementById("Purchase-10000-tickets");
+        const closeButton = document.getElementById("close");
+        const gasinoButton = document.getElementById("Gasino");
+        const title = document.getElementById("machine-title");
+        const root = document.querySelector(':root');
+        const versionText = document.getElementById("version");
+        const buildText = document.getElementById("build");
+        const patchNotesBtn = document.getElementById("patch-notes");
+        const subtitleVersion = document.getElementById("subtitle-version");
+        const checkbox = document.getElementById("checkbox");
+        const proceedButton = document.getElementById("proceedButton");
+
+
+        versionText.textContent = version;
+        buildText.textContent = build;
+
+        function proceed() {
+            if (checkbox.checked) {
+                window.location.href = "index.html";
+            }
+            else {
+                alert("Check the box to accept the disclaimer")
+            }
+        }
+
+        function tickBox() {
+            if (checkbox.checked) {
+                checkbox.checked = false;
+            }
+            else {
+                checkbox.checked = true;
+            }
+        }
+
+        // --- MAIN FUNCTION ---
+        function toggleGame() {
+            if (isSpinning) {
+                stopGame();
+            } else {
+                root.style.backgroundColor = "#1a1a1a";
+                startGame();
+            }
+        }
+
+        function gasino() {
+            console.log("Gasino button clicked!");
+            messageEl.textContent = "Welcome to Artyom's Gasino!";
+            title.textContent = "Gasino";
+
+        }
+
+        function purchaseTicket(amount) {
+            ticketsAmount += amount;
+            ticketsMultiplier.textContent = "x " + ticketsAmount;
+        }
+
+        function storeButton() {
+            if (storeOpen == true) {
+                document.querySelector(".store").style.display = "none";
+                storeOpen = false;
+
+            }
+            else {
+                // alert("Refresh the page to open the store");
+                document.querySelector(".store").style.display = "block";
+                storeOpen = true;
+            }
+        }
+
+        function startGame() {
+            if (ticketsAmount >= 1) {
+                isSpinning = true;
+                buttonEl.innerText = "STOP";
+                buttonEl.style.backgroundColor = "#444"; // Dim the button while spinning
+                messageEl.innerText = "Spinning...";
+                // console.log(ticketsAmount);
+                ticketsAmount -= 1;
+                // console.log(ticketsAmount);
+                ticketsMultiplier.textContent = "x " + ticketsAmount;
+
+                messageEl.className = ""; // Remove any "winner" colors
+
+                // This creates a loop that runs every 50ms
+                spinTimer = setInterval(() => {
+                    reel1.innerText = Math.floor(Math.random() * 9) + 1;
+                    reel2.innerText = Math.floor(Math.random() * 9) + 1;
+                    reel3.innerText = Math.floor(Math.random() * 9) + 1;
+                }, SPIN_SPEED);
+            }
+            else {
+                root.style.backgroundColor = "#ed0202";
+                setTimeout(() => {
+                    alert("Not enough tickets!");
+                }, 300)
+            }
+        }
+
+        function stopGame() {
+            isSpinning = false;
+            clearInterval(spinTimer); // Stops the loop
+            
+            buttonEl.innerText = "SPIN";
+            buttonEl.style.backgroundColor = ""; // Reset button color
+
+            checkWin();
+        }
+
+        function checkWin() {
+            // Get the numbers currently on screen
+            let r1 = parseInt(reel1.innerText);
+            let r2 = parseInt(reel2.innerText);
+            let r3 = parseInt(reel3.innerText);
+
+            // 1. Check Visual Match (7-7-7)
+            if (r1 === 7 && r2 === 7 && r3 === 7) {
+                
+                // 2. Check the Hidden RNG (1 in 1,000,000)
+                let rngCheck = Math.floor(Math.random() * 1000000) + 1;
+
+                if (rngCheck === 777) {
+                    messageEl.innerText = "JACKPOT!!!\nYOU DEFIED THE ODDS!\nPRIZE: 777,777,777 TICKETS";
+                    messageEl.className = "winner";
+                    alert("REAL JACKPOT!");
+                } else {
+                    messageEl.innerText = "7-7-7!\n(But failed the 1/1,000,000 RNG check)\nComplimentary prize: 77 tickets";
+                }
+            } else {
+                messageEl.innerText = "You lost.\nTry again!";
+                root.style.backgroundColor = "#ed0202";
+                setTimeout(() => {
+                    root.style.backgroundColor = "#1a1a1a";
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

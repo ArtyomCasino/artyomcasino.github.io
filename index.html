@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artyom Casino</title>
+    <style>
+        * {
+           padding: 0;
+           margin: 0;
+        }
+
+        /* --- 1. EASY EDIT ZONE: Change colors/sizes here --- */
+        :root {
+            transition: all 0.3s ease-in;
+            background-color: #1a1a1a;
+            --box-color: #222;
+            --text-color: #fff;
+            --accent-color: crimson; /* Button color */
+            --slot-border: gold;
+            --slot-bg: #fff;
+            --slot-text: #000;
+        }
+
+        /* --- 2. Standard CSS --- */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .machine-container {
+            border: 4px solid #444;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: var(--box-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            width: 500px;
+        }
+
+        .slots {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #666;
+            justify-content: center;
+        }
+
+        .reel {
+            font-size: 60px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--slot-bg);
+            color: var(--slot-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 3px solid var(--slot-border);
+        }
+
+        #message {
+            font-size: 18px;
+            min-height: 60px;
+            margin-bottom: 20px;
+            color: #bbb;
+            white-space: pre-wrap; 
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%; /* Makes button fill the container width */
+            margin-left: 50px;
+        }
+
+        .slot-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        button:hover { filter: brightness(1.2); }
+        button:active { transform: scale(0.98); }
+
+        .tickets {
+            width: 80px;
+            height: 80px;
+        }
+
+        .tickets-counter {
+            width: 250px;
+            display: flex;
+            align-self: flex-end;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #tickets-multiplier {
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20%;
+            position: relative;
+        }
+
+        .store {
+            position: absolute;
+            background-color: #777;
+            border-radius: 15px;
+            height: 500px;
+            width: 40%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: scroll;
+            z-index: 20;
+            display: none;
+        }
+
+        .store-title {
+            margin-top: 25px;
+            display: inline-block;
+            /* justify-self: center; */
+        }
+
+        .Purchase-button {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .close-button {
+            color: red;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            display: inline-block;
+            position: absolute;
+            right: 25px;
+            top: 25px;
+        }
+
+        .store-header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            background-color: #777;
+            z-index: 10;
+        }
+
+        .purchase-container {
+            display: block;
+        }
+
+        .outer-purchase-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+            margin-bottom: 30px;
+        }
+
+        .version-container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: absolute;
+            bottom: 0;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .store-icon {
+            width: 100px;
+            left: -5px;
+            position: relative;
+            filter: invert(100%);
+        }
+
+        .store-button-container {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            justify-content: flex-start;
+        }
+
+        #storeButton {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between
+        }
+
+        .build-container {
+            display: block;
+        }
+
+        #patch-notes {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            text-align: end;
+        }
+
+        .version {
+            display: block;
+        }
+
+        /* Special class for winning text */
+        .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="store">
+            <div class="store-header">
+                <h2 class="store-title">Store</h2>
+                <a href="#" class="Purchase-button close-button" id="close" onclick="storeButton()">X</a>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="purchaseTicket(1)"><img src="Ticket.png" alt="Ticket" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="purchaseTicket(1)">1 ticket</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="purchaseTicket(5)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="purchaseTicket(5)">5 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="purchaseTicket(10)"><img src="10 Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="purchaseTicket(10)">10 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="purchaseTicket(50)"><img src="15 Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="purchaseTicket(50)">50 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)"><img src="100 Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)">100 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)">250 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)">500 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="purchaseTicket(1000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="purchaseTicket(1000)">1000 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="purchaseTicket(5000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="purchaseTicket(5000)">5000 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="purchaseTicket(10000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="purchaseTicket(10000)">10000 tickets</a>
+                </div>
+            </div>
+            <div class="Purchase-container">
+                <a href="#" class="Purchase-button" id="Gasino" onclick="gasino()">Gas ⛽</a>
+            </div>
+        </div>
+        <div class="header">
+            <div class="store-button-container">
+                <a href="#" id="storeButton" onclick="storeButton()"><img src="shopping-cart.webp" alt="Shopping cart" class="store-icon"></a>
+                <a href="#" id="storeButton" onclick="storeButton()">Store!</a>
+            </div>
+
+            <div class="tickets-counter">
+                <img src="Tickets.png" alt="[Tickets]" class="tickets">
+                <p id="tickets-multiplier">x 10</p>
+            </div>
+        </div>
+
+        <div class="machine-container">
+            <h1 id="machine-title">🎰 The Artyom Casino 🎰</h1>
+            
+            <div id="message">Welcome to Artyom's casino!<br>Press SPIN to start!</div>
+
+            <div class="slot-container">
+                <div class="slots">
+                    <div id="reel1" class="reel">7</div>
+                    <div id="reel2" class="reel">7</div>
+                    <div id="reel3" class="reel">7</div>
+                </div>
+
+                <button id="actionBtn" onclick="toggleGame()">SPIN</button>
+        </div>
+    </div>
+</div>
+
+    <div class="version-container">
+        <p class="version" id="version">Error -1</p>
+        <div class="build-container">
+            <a href="index-2.html" id="patch-notes">Patch notes</a>
+            <p class="version build" id="build">Error -1</p>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        // Change this to make the numbers spin faster/slower (in milliseconds)
+        const SPIN_SPEED = 50; 
+        const build = "build a26R226C"
+        const version = "Artyom's Casino v0.4.1a"
+        
+        
+        // --- STATE VARIABLES ---
+        let isSpinning = false;
+        let spinTimer = null; // This holds the "interval" ID
+        let ticketsAmount = 10;
+        let storeOpen = false;
+        // let gasinoActive = false;
+        
+        // HTML Elements (Grabbed once to keep code clean)
+        const reel1 = document.getElementById("reel1");
+        const reel2 = document.getElementById("reel2");
+        const reel3 = document.getElementById("reel3");
+        const messageEl = document.getElementById("message");
+        const buttonEl = document.getElementById("actionBtn");
+        const ticketsMultiplier = document.getElementById("tickets-multiplier");
+        const pur1btn = document.getElementById("Purchase-1-ticket");
+        const pur5btn = document.getElementById("Purchase-5-tickets");
+        const pur10btn = document.getElementById("Purchase-10-tickets");
+        const pur50btn = document.getElementById("Purchase-50-tickets");
+        const pur100btn = document.getElementById("Purchase-100-tickets");
+        const pur250btn = document.getElementById("Purchase-250-tickets");
+        const pur500btn = document.getElementById("Purchase-500-tickets");
+        const pur1000btn = document.getElementById("Purchase-1000-tickets");
+        const pur5000btn = document.getElementById("Purchase-5000-tickets");
+        const pur10000btn = document.getElementById("Purchase-10000-tickets");
+        const closeButton = document.getElementById("close");
+        const gasinoButton = document.getElementById("Gasino");
+        const title = document.getElementById("machine-title");
+        const root = document.querySelector(':root');
+        const versionText = document.getElementById("version");
+        const buildText = document.getElementById("build");
+        const patchNotesBtn = document.getElementById("patch-notes");
+
+        
+        versionText.textContent = version;
+        buildText.textContent = build;
+
+        // --- MAIN FUNCTION ---
+        function toggleGame() {
+            if (isSpinning) {
+                stopGame();
+            } else {
+                root.style.backgroundColor = "#1a1a1a";
+                startGame();
+            }
+        }
+
+        function gasino() {
+            console.log("Gasino button clicked!");
+            messageEl.textContent = "Welcome to Artyom's Gasino!";
+            title.textContent = "Gasino";
+
+        }
+
+        function purchaseTicket(amount) {
+            ticketsAmount += amount;
+            ticketsMultiplier.textContent = "x " + ticketsAmount;
+        }
+
+        function storeButton() {
+            if (storeOpen == true) {
+                document.querySelector(".store").style.display = "none";
+                storeOpen = false;
+
+            }
+            else {
+                // alert("Refresh the page to open the store");
+                document.querySelector(".store").style.display = "block";
+                storeOpen = true;
+            }
+        }
+
+        function startGame() {
+            if (ticketsAmount >= 1) {
+                isSpinning = true;
+                buttonEl.innerText = "STOP";
+                buttonEl.style.backgroundColor = "#444"; // Dim the button while spinning
+                messageEl.innerText = "Spinning...";
+                // console.log(ticketsAmount);
+                ticketsAmount -= 1;
+                // console.log(ticketsAmount);
+                ticketsMultiplier.textContent = "x " + ticketsAmount;
+
+                messageEl.className = ""; // Remove any "winner" colors
+
+                // This creates a loop that runs every 50ms
+                spinTimer = setInterval(() => {
+                    reel1.innerText = Math.floor(Math.random() * 9) + 1;
+                    reel2.innerText = Math.floor(Math.random() * 9) + 1;
+                    reel3.innerText = Math.floor(Math.random() * 9) + 1;
+                }, SPIN_SPEED);
+            }
+            else {
+                root.style.backgroundColor = "#ed0202";
+                setTimeout(() => {
+                    alert("Not enough tickets!");
+                }, 300)
+            }
+        }
+
+        function stopGame() {
+            isSpinning = false;
+            clearInterval(spinTimer); // Stops the loop
+            
+            buttonEl.innerText = "SPIN";
+            buttonEl.style.backgroundColor = ""; // Reset button color
+
+            checkWin();
+        }
+
+        function checkWin() {
+            // Get the numbers currently on screen
+            let r1 = parseInt(reel1.innerText);
+            let r2 = parseInt(reel2.innerText);
+            let r3 = parseInt(reel3.innerText);
+
+            // 1. Check Visual Match (7-7-7)
+            if (r1 === 7 && r2 === 7 && r3 === 7) {
+                
+                // 2. Check the Hidden RNG (1 in 1,000,000)
+                let rngCheck = Math.floor(Math.random() * 1000000) + 1;
+
+                if (rngCheck === 777) {
+                    messageEl.innerText = "JACKPOT!!!\nYOU DEFIED THE ODDS!\nPRIZE: 777,777,777 TICKETS";
+                    messageEl.className = "winner";
+                    alert("REAL JACKPOT!");
+                } else {
+                    messageEl.innerText = "7-7-7!\n(But failed the 1/1,000,000 RNG check)\nComplimentary prize: 77 tickets";
+                }
+            } else {
+                messageEl.innerText = "You lost.\nTry again!";
+                root.style.backgroundColor = "#ed0202";
+                setTimeout(() => {
+                    root.style.backgroundColor = "#1a1a1a";
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
