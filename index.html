@@ -121,9 +121,10 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            padding: 20%;
+            padding: 0 20%;
+            padding-top: 10%;
             position: relative;
         }
 
@@ -136,7 +137,6 @@
             font-family: Arial, Helvetica, sans-serif;
             overflow-y: scroll;
             z-index: 20;
-            display: none;
         }
 
         .store-title {
@@ -194,7 +194,7 @@
             align-items: flex-end;
             position: absolute;
             bottom: 0;
-            padding: 10px 20px;
+            padding: 10px 20px 0;
             box-sizing: border-box;
         }
 
@@ -239,104 +239,125 @@
             display: block;
         }
 
+        .feature {
+            text-align: start;
+            font-size: 25px;
+        }
+
+        .title {
+            margin-bottom: 10px;
+            color: red;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            margin-bottom: 50px;
+        }
+
+        #subtitle-version {
+            font-size: 35px;
+        }
+
+        .home-button {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            align-self: flex-start;
+            background-color: #444;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            color: red;
+        }
+
+        .checkbox-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        #checkbox {
+            margin-right: 15px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        #proceedButton {
+            text-decoration: none;
+            color: #fff;
+            background-color: #777;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .disclaimer {
+            overflow-y: scroll;
+            height: 50%;
+        }
+
+        .checkbox-text {
+            cursor: pointer;
+        }
+
         /* Special class for winning text */
         .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <div class="store">
-            <div class="store-header">
-                <h2 class="store-title">Success</h2>
-                <a href="#" class="Purchase-button close-button" id="close" onclick="storeButton()">X</a>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="purchaseTicket(1)"><img src="Ticket.png" alt="Ticket" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="purchaseTicket(1)">1 ticket</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="purchaseTicket(5)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="purchaseTicket(5)">5 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="purchaseTicket(10)"><img src="10 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="purchaseTicket(10)">10 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="purchaseTicket(50)"><img src="15 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="purchaseTicket(50)">50 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)"><img src="100 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)">100 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)">250 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)">500 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="purchaseTicket(1000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="purchaseTicket(1000)">1000 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="purchaseTicket(5000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="purchaseTicket(5000)">5000 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="purchaseTicket(10000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="purchaseTicket(10000)">10000 tickets</a>
-                </div>
-            </div>
-            <div class="Purchase-container">
-                <a href="#" class="Purchase-button" id="Gasino" onclick="gasino()">Gas ⛽</a>
-            </div>
+        <h1 class="title">Disclaimer</h1>
+        <p class="disclaimer">Artyom's Casino: Official Legal Disclaimer & Terms of Use<br><br>
+-----------------------<br><br>            
+1. General Purpose and Educational Scope<br>
+Welcome to Artyom’s Casino. Please read this disclaimer carefully before interacting with this website. This website is a strictly non-commercial, educational demonstration created exclusively as a school project. It is not a registered business, it does not hold any gaming licenses, and it is not operated by a commercial entity. By accessing, browsing, or using this website, you acknowledge and agree that the platform is intended solely for academic grading, portfolio demonstration, and web development practice.<br>
+<br>
+2. Strictly No Real Money Gambling<br>
+Artyom's Casino does not offer "real money gambling" or an opportunity to win real money or prizes. Under no circumstances can users deposit, wager, or withdraw real-world fiat currency, cryptocurrency, or any other items of actual financial value. This platform operates entirely outside the scope of real-world gambling legislation because it is fundamentally a simulation.<br>
+<br>
+3. Virtual Currency and Account Balances<br> 
+Any "credits," "coins," "chips," "tokens," "jackpots," or "winnings" displayed within the games, slot machines, or user dashboards on this site are entirely fictitious. They possess absolutely no real-world value and cannot be exchanged, redeemed, traded, or cashed out for real money, goods, or services under any circumstances. Virtual balances are provided simply to simulate the mechanical functionality of casino games for the purpose of the project. If your virtual balance reaches zero, no real-world financial loss has occurred, and if you hit a virtual jackpot, no real-world financial gain has been achieved.<br>
+<br>
+4. No Promotion of Real-World Gambling<br>
+This website does not endorse, encourage, or promote participation in real-world gambling activities. The theme of a casino was chosen strictly for the purpose of demonstrating interactive programming, random number generation, logic implementation, and user interface design (UI/UX). Success, winning streaks, or high scores achieved within the simulated games on Artyom's Casino do not imply or guarantee future success at real-money gambling or real-world casinos. Real casino games are mathematically designed with a house edge, and the algorithms used in this school project may not reflect the actual odds, volatility, or mechanics of commercially regulated slot machines.<br>
+<br>
+5. Limitation of Liability and "As-Is" Provision<br>
+Because this website is an academic project, it is provided on an "as-is" and "as-available" basis without any warranties of any kind, either express or implied. The developer(s) of Artyom's Casino shall not be held liable for any bugs, glitches, data loss, browser crashes, or technical issues that may arise from interacting with the site. User data (if any is collected, such as local storage for saving a high score) is not guaranteed to be secure or permanent.<br>
+<br>
+6. Responsible Gaming and Real-World Resources<br>
+While absolutely no real money is involved on this educational website, we recognize that problem gambling is a serious issue in the real world. If you or someone you know is struggling with a gambling addiction, we encourage you to seek professional help. There are numerous free, confidential resources and hotlines available globally to assist individuals affected by gambling-related harm.<br>
+<br>
+7. Intellectual Property and Fictional Design<br>
+This project is a fictional creation. Any similarities between the aesthetics, themes, or naming conventions of Artyom's Casino and any real-world entities are completely coincidental. Any third-party images or graphical assets used within this project are for educational demonstration purposes only under fair use, and no copyright infringement is intended. <br>
+<br>
+8. Acceptance of Terms<br>
+By clicking "Accept," closing this pop-up, or continuing to use Artyom's Casino, you confirm that you have read, understood, and agreed to this disclaimer. You acknowledge that you are participating in a risk-free, educational simulation and that no real money transactions will take place.<br>
+<br>
+This website is a work of fiction. Names, characters, businesses, places, events, locales, and incidents are either the products of the creator's imagination or used in a fictitious manner. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.</p>
+        <div class="checkbox-container">
+            <input type="checkbox" id="checkbox">
+            <a class="checkbox-text" onclick="tickBox()">I understand</a>
         </div>
-        <div class="header">
-            <div class="store-button-container">
-                <a href="#" id="storeButton" onclick="storeButton()"><img src="shopping-cart.webp" alt="Shopping cart" class="store-icon"></a>
-                <a href="#" id="storeButton" onclick="storeButton()">Store!</a>
-            </div>
-
-            <div class="tickets-counter">
-                <img src="Tickets.png" alt="[Tickets]" class="tickets">
-                <p id="tickets-multiplier">x 10</p>
-            </div>
-        </div>
-
-        <div class="machine-container">
-            <h1 id="machine-title">🎰 The Artyom Casino 🎰</h1>
-            
-            <div id="message">Welcome to Artyom's casino!<br>Press SPIN to start!</div>
-
-            <div class="slot-container">
-                <div class="slots">
-                    <div id="reel1" class="reel">7</div>
-                    <div id="reel2" class="reel">7</div>
-                    <div id="reel3" class="reel">7</div>
-                </div>
-
-                <button id="actionBtn" onclick="toggleGame()">SPIN</button>
-        </div>
+        <a href="#" id="proceedButton" onclick="proceed()">Proceed</a>
     </div>
-</div>
 
     <div class="version-container">
         <p class="version" id="version">Error -1</p>
         <div class="build-container">
-            <a href="index-2.html" id="patch-notes">Patch notes</a>
+            <a href="#" id="patch-notes">Patch notes</a>
             <p class="version build" id="build">Error -1</p>
         </div>
     </div>
@@ -353,7 +374,7 @@
         let isSpinning = false;
         let spinTimer = null; // This holds the "interval" ID
         let ticketsAmount = 10;
-        let storeOpen = false;
+        let storeOpen = true;
         // let gasinoActive = false;
         
         // HTML Elements (Grabbed once to keep code clean)
@@ -380,10 +401,31 @@
         const versionText = document.getElementById("version");
         const buildText = document.getElementById("build");
         const patchNotesBtn = document.getElementById("patch-notes");
+        const subtitleVersion = document.getElementById("subtitle-version");
+        const checkbox = document.getElementById("checkbox");
+        const proceedButton = document.getElementById("proceedButton");
 
-        
+
         versionText.textContent = version;
         buildText.textContent = build;
+
+        function proceed() {
+            if (checkbox.checked) {
+                window.location.href = "main.html";
+            }
+            else {
+                alert("Check the box to accept the disclaimer")
+            }
+        }
+
+        function tickBox() {
+            if (checkbox.checked) {
+                checkbox.checked = false;
+            }
+            else {
+                checkbox.checked = true;
+            }
+        }
 
         // --- MAIN FUNCTION ---
         function toggleGame() {

@@ -121,10 +121,9 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             padding: 20%;
-            padding-top: 10%;
             position: relative;
         }
 
@@ -137,6 +136,7 @@
             font-family: Arial, Helvetica, sans-serif;
             overflow-y: scroll;
             z-index: 20;
+            display: none;
         }
 
         .store-title {
@@ -239,65 +239,104 @@
             display: block;
         }
 
-        .feature {
-            text-align: start;
-            font-size: 25px;
-        }
-
-        .title {
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 20px;
-            margin-bottom: 50px;
-        }
-
-        #subtitle-version {
-            font-size: 35px;
-        }
-
-        .home-button {
-            text-decoration: none;
-            color: #fff;
-            display: flex;
-            font-size: 50px;
-            font-family: Arial, Helvetica, sans-serif;
-            align-self: flex-start;
-            background-color: #444;
-            padding: 10px 20px;
-            border-radius: 15px;
-            transition: all 0.1s ease-in;
-            cursor: pointer;
-        }
-
-        .home-button:hover {
-            color: red;
-        }
-
         /* Special class for winning text */
         .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <a href="index.html" class="home-button">X</a>
-        <h1 class="title">Patch Notes</h1>
-        <h2 class="subtitle">Things added in <p id="subtitle-version">Error -1</p></h2>
-        <ul>
-            <li class="feature">Bug fixes</li>
-            <li class="feature">New icons added</li>
-            <li class="feature">Disclaimer screen added</li>
-            <li class="feature">Disclaimer text added</li>
-            <li class="feature">Disclaimer text modified</li>
-            <li class="feature">"I understand" text in the disclaimer now also checks the box</li>
-        </ul>
+        <div class="store">
+            <div class="store-header">
+                <h2 class="store-title">Success</h2>
+                <a href="#" class="Purchase-button close-button" id="close" onclick="storeButton()">X</a>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="purchaseTicket(1)"><img src="Ticket.png" alt="Ticket" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="purchaseTicket(1)">1 ticket</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="purchaseTicket(5)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="purchaseTicket(5)">5 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="purchaseTicket(10)"><img src="10 Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="purchaseTicket(10)">10 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="purchaseTicket(50)"><img src="15 Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="purchaseTicket(50)">50 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)"><img src="100 Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)">100 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)">250 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)">500 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="purchaseTicket(1000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="purchaseTicket(1000)">1000 tickets</a>
+                </div>
+            </div>
+            <div class="outer-purchase-container">
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="purchaseTicket(5000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="purchaseTicket(5000)">5000 tickets</a>
+                </div>
+                <div class="Purchase-container">
+                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="purchaseTicket(10000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="purchaseTicket(10000)">10000 tickets</a>
+                </div>
+            </div>
+            <div class="Purchase-container">
+                <a href="#" class="Purchase-button" id="Gasino" onclick="gasino()">Gas ⛽</a>
+            </div>
+        </div>
+        <div class="header">
+            <div class="store-button-container">
+                <a href="#" id="storeButton" onclick="storeButton()"><img src="shopping-cart.webp" alt="Shopping cart" class="store-icon"></a>
+                <a href="#" id="storeButton" onclick="storeButton()">Store!</a>
+            </div>
+
+            <div class="tickets-counter">
+                <img src="Tickets.png" alt="[Tickets]" class="tickets">
+                <p id="tickets-multiplier">x 10</p>
+            </div>
+        </div>
+
+        <div class="machine-container">
+            <h1 id="machine-title">🎰 The Artyom Casino 🎰</h1>
+            
+            <div id="message">Welcome to Artyom's casino!<br>Press SPIN to start!</div>
+
+            <div class="slot-container">
+                <div class="slots">
+                    <div id="reel1" class="reel">7</div>
+                    <div id="reel2" class="reel">7</div>
+                    <div id="reel3" class="reel">7</div>
+                </div>
+
+                <button id="actionBtn" onclick="toggleGame()">SPIN</button>
+        </div>
     </div>
+</div>
 
     <div class="version-container">
         <p class="version" id="version">Error -1</p>
         <div class="build-container">
-            <a href="#" id="patch-notes">Patch notes</a>
+            <a href="patch-notes.html" id="patch-notes">Patch notes</a>
             <p class="version build" id="build">Error -1</p>
         </div>
     </div>
@@ -314,7 +353,7 @@
         let isSpinning = false;
         let spinTimer = null; // This holds the "interval" ID
         let ticketsAmount = 10;
-        let storeOpen = true;
+        let storeOpen = false;
         // let gasinoActive = false;
         
         // HTML Elements (Grabbed once to keep code clean)
@@ -341,9 +380,8 @@
         const versionText = document.getElementById("version");
         const buildText = document.getElementById("build");
         const patchNotesBtn = document.getElementById("patch-notes");
-        const subtitleVersion = document.getElementById("subtitle-version");
 
-        subtitleVersion.textContent = version;
+        
         versionText.textContent = version;
         buildText.textContent = build;
 
