@@ -1,8 +1,9 @@
+
 // --- CONFIGURATION ---
 // Change this to make the numbers spin faster/slower (in milliseconds)
 const SPIN_SPEED = 50; 
-const build = "build a28R226C"
-const version = "Artyom's Casino v0.4.2a - Emergency maintainance: Complete #1/3. Undergoing Emergency Maintainance #2"
+const build = "build a2R326C"
+const version = "Artyom's Casino v0.4.3a - Emergency maintainance: Complete #2/3. Undergoing Emergency Maintainance #3"
 
 
 // --- STATE VARIABLES ---
@@ -10,6 +11,9 @@ let isSpinning = false;
 let spinTimer = null; // This holds the "interval" ID
 let ticketsAmount = 10;
 let storeOpen = false;
+let debugOpen = false;
+let gasinoTimes = 0;
+// let passwordEntered = document.getElementById("debug-password").textv
 // let gasinoActive = false;
 
 // HTML Elements (Grabbed once to keep code clean)
@@ -39,6 +43,10 @@ const patchNotesBtn = document.getElementById("patch-notes");
 const subtitleVersion = document.getElementById("subtitle-version");
 const checkbox = document.getElementById("checkbox");
 const proceedButton = document.getElementById("proceedButton");
+const passwordField = document.getElementById("debug-password");
+const passwordContainer = document.getElementById("debug-password-container");
+const debugInterface = document.getElementById("debug-interface");
+const debugPasswordTitle = document.getElementById("debug-password-title");
 
 // The question mark checks if it exists before trying to access .textContent
 subtitleVersion?.setAttribute('textContent', version); // Or simply:
@@ -65,6 +73,18 @@ function tickBox() {
     }
 }
 
+function enterPassword() {
+    if (passwordField.value == "Steak") {
+        passwordContainer.style.display = "none";
+        debugInterface.style.display = "block"
+    }
+    else {
+        passwordField.value = "";
+        debugPasswordTitle.style.color = "red";
+        debugPasswordTitle.textContent = "Wrong password!";
+    }
+}
+
 // --- MAIN FUNCTION ---
 function toggleGame() {
     if (isSpinning) {
@@ -75,11 +95,31 @@ function toggleGame() {
     }
 }
 
-function gasino() {
-    console.log("Gasino button clicked!");
-    messageEl.textContent = "Welcome to Artyom's Gasino!";
-    title.textContent = "Gasino";
+function debugButton() {
+    if (debugOpen == true) {
+        document.querySelector(".debug").style.display = "none";
+        debugOpen = false;
 
+    }
+    else {
+        // alert("Refresh the page to open the store");
+        document.querySelector(".debug").style.display = "block";
+        debugOpen = true;
+    }
+}
+
+function gasino() {
+    if (gasinoTimes <= 15) {
+        console.log("Gasino button clicked!");
+        messageEl.textContent = "Welcome to Artyom's Gasino!";
+        title.textContent = "Gasino";
+        gasinoTimes += 1;
+        console.log(String(gasinoTimes));
+    }
+
+    else {
+        debugButton();
+    }
 }
 
 function purchaseTicket(amount) {
@@ -97,6 +137,77 @@ function storeButton() {
         // alert("Refresh the page to open the store");
         document.querySelector(".store").style.display = "block";
         storeOpen = true;
+    }
+}
+
+function debug1() {
+    reel1.innertext = 7;
+    reel2.innerText = 7;
+    reel3.innerText = 7;
+    checkWin();
+}
+
+function debug2() {
+    reel1.innertext = 7;
+    reel2.innerText = 7;
+    reel3.innerText = 7;
+    let r1 = parseInt(reel1.innerText);
+    let r2 = parseInt(reel2.innerText);
+    let r3 = parseInt(reel3.innerText);
+
+    // 1. Check Visual Match (7-7-7)
+    if (r1 === 7 && r2 === 7 && r3 === 7) {
+        
+        // 2. Check the Hidden RNG (1 in 1,000,000)
+        let rngCheck = 676767;
+
+        if (rngCheck === 777) {
+            purchaseTicket(777777777);
+            messageEl.innerText = "JACKPOT!!!\nYOU DEFIED THE ODDS!\nPRIZE: 777,777,777 TICKETS";
+            messageEl.className = "winner";
+            alert("REAL JACKPOT!");
+        } else {
+            purchaseTicket(77);
+            messageEl.innerText = "7-7-7!\n(But failed the 1/1,000,000 RNG check)\nComplimentary prize: 77 tickets";
+        }
+    } else {
+        messageEl.innerText = "You lost.\nTry again!";
+        root.style.backgroundColor = "#ed0202";
+        setTimeout(() => {
+            root.style.backgroundColor = "#1a1a1a";
+        }, 1000);
+    }
+}
+
+function debug3() {
+    reel1.innertext = 7;
+    reel2.innerText = 7;
+    reel3.innerText = 7;
+    let r1 = parseInt(reel1.innerText);
+    let r2 = parseInt(reel2.innerText);
+    let r3 = parseInt(reel3.innerText);
+
+    // 1. Check Visual Match (7-7-7)
+    if (r1 === 7 && r2 === 7 && r3 === 7) {
+        
+        // 2. Check the Hidden RNG (1 in 1,000,000)
+        let rngCheck = 777;
+
+        if (rngCheck === 777) {
+            purchaseTicket(777777777);
+            messageEl.innerText = "JACKPOT!!!\nYOU DEFIED THE ODDS!\nPRIZE: 777,777,777 TICKETS";
+            messageEl.className = "winner";
+            alert("REAL JACKPOT!");
+        } else {
+            purchaseTicket(77);
+            messageEl.innerText = "7-7-7!\n(But failed the 1/1,000,000 RNG check)\nComplimentary prize: 77 tickets";
+        }
+    } else {
+        messageEl.innerText = "You lost.\nTry again!";
+        root.style.backgroundColor = "#ed0202";
+        setTimeout(() => {
+            root.style.backgroundColor = "#1a1a1a";
+        }, 1000);
     }
 }
 
@@ -151,10 +262,12 @@ function checkWin() {
         let rngCheck = Math.floor(Math.random() * 1000000) + 1;
 
         if (rngCheck === 777) {
+            purchaseTicket(777777777);
             messageEl.innerText = "JACKPOT!!!\nYOU DEFIED THE ODDS!\nPRIZE: 777,777,777 TICKETS";
             messageEl.className = "winner";
             alert("REAL JACKPOT!");
         } else {
+            purchaseTicket(77);
             messageEl.innerText = "7-7-7!\n(But failed the 1/1,000,000 RNG check)\nComplimentary prize: 77 tickets";
         }
     } else {

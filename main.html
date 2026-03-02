@@ -239,11 +239,109 @@
             display: block;
         }
 
+        .debug {
+            position: absolute;
+            background-color: #000;
+            color: #00ff2b;
+            border-radius: 15px;
+            height: 500px;
+            width: 35%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: scroll;
+            z-index: 40;
+            align-self: flex-start;
+            max-width: 600px;
+            display: none;
+        }
+
+        .debug-header {
+            display: flex;
+            flex-direction: row;
+            padding-top: 15px;
+        }
+
+        #debug-close {
+            margin-right: 40%;
+            margin-left: 10%;
+        }
+
+        .debug-title {
+            color:#00ff2b;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 550;
+        }
+
+        #debug-interface {
+            display: none;
+        }
+
+        #debug-password-title {
+            color:#00ff2b;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 500;
+        }
+
+        #debug-password {
+            background-color: #000;
+            border: #00ff2b 0.1px solid;
+            border-radius: 2px;
+            width: 250px;
+            color: #00ff2b;
+            margin-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 500;
+        }
+
+        #debug-password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .debug-text {
+            color:#00ff2b;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 500;
+        }
+
+        #debug-proceed {
+            margin-top: 50px;
+        }
+
+        .debug-subsubtitle {
+            margin: 25px 0;
+        }
+
+        .debug-button {
+            margin-right: 15px;
+        }
+
         /* Special class for winning text */
         .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
     </style>
 </head>
 <body>
+    <div class="debug">
+        <div class="debug-header">
+            <a href="#" class="debug-text" id="debug-close" onclick="debugButton()">X</a>
+            <h2 class="debug-title">Debug</h2>
+        </div>
+        <div id="debug-password-container">
+            <h3 id="debug-password-title">Insert password</h3>
+            <input type="text" id="debug-password">
+            <a href="#" class="debug-text" id="debug-proceed" onclick="enterPassword()">Proceed</a>
+        </div>
+        <div id="debug-interface">
+            <h3 class="debug-text">Welcome to debug menu!</h3>
+            <h4 class="debug-text debug-subsubtitle">Debug menu coming soon in v0.4.4! Stay tuned!</h4>
+            <a href="#" class="debug-text debug-button" onclick="debug1()">777</a>
+            <a href="#" class="debug-text debug-button" onclick="debug2()">777 with no win</a>
+            <a href="#" class="debug-text debug-button" onclick="debug3()">777 with 1/1,000,000 win</a>
+            <p class="debug-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora cumque necessitatibus animi minima velit natus voluptates hic iure, blanditiis voluptatem atque. Consequatur consectetur recusandae qui veritatis fugiat harum facere quas.</p>
+        </div>
+    </div>
+
     <div class="wrapper">
         <div class="store">
             <div class="store-header">
