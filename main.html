@@ -317,6 +317,16 @@
             margin-right: 15px;
         }
 
+        .img-250-tickets {
+            width: fit-content;
+        }
+
+        .settings-container {
+            position: sticky;
+            display: flex;
+            justify-self: flex-end;
+        }
+
         /* Special class for winning text */
         .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
     </style>
@@ -329,7 +339,7 @@
         </div>
         <div id="debug-password-container">
             <h3 id="debug-password-title">Insert password</h3>
-            <input type="text" id="debug-password">
+            <input type="password" id="debug-password" autocomplete="new-password">
             <a href="#" class="debug-text" id="debug-proceed" onclick="enterPassword()">Proceed</a>
         </div>
         <div id="debug-interface">
@@ -340,6 +350,11 @@
             <a href="#" class="debug-text debug-button" onclick="debug3()">777 with 1/1,000,000 win</a>
             <p class="debug-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora cumque necessitatibus animi minima velit natus voluptates hic iure, blanditiis voluptatem atque. Consequatur consectetur recusandae qui veritatis fugiat harum facere quas.</p>
         </div>
+    </div>
+
+    <div class="settings-container">
+        <a href="#" class="settings-button"><img src="#" alt="Settings-icon" class="settings-icon"></a>
+        <a href="#" class="settings-button">Settings</a>
     </div>
 
     <div class="wrapper">
@@ -374,13 +389,13 @@
                     <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="purchaseTicket(100)">100 tickets</a>
                 </div>
                 <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)"><img src="250 Tickets.png" alt="Tickets" class="tickets img-250-tickets"></a>
                     <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="purchaseTicket(250)">250 tickets</a>
                 </div>
             </div>
             <div class="outer-purchase-container">
                 <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
+                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)"><img src="500 Tickets.png" alt="Tickets" class="tickets"></a>
                     <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="purchaseTicket(500)">500 tickets</a>
                 </div>
                 <div class="Purchase-container">

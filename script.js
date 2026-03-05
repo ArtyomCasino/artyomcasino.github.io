@@ -2,8 +2,8 @@
 // --- CONFIGURATION ---
 // Change this to make the numbers spin faster/slower (in milliseconds)
 const SPIN_SPEED = 50; 
-const build = "build a2R326C"
-const version = "Artyom's Casino v0.4.3a - Emergency maintainance: Complete #2/3. Undergoing Emergency Maintainance #3"
+const build = "build a5R326A"
+const version = "Artyom's Casino v0.4.3a - Emergency maintainance: Complete #2/4. Undergoing Emergency Maintainance #3"
 
 
 // --- STATE VARIABLES ---
@@ -62,7 +62,7 @@ function proceed() {
     else {
         alert("Check the box to accept the disclaimer")
     }
-}
+} 
 
 function tickBox() {
     if (checkbox.checked) {
