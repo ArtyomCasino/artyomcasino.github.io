@@ -1,18 +1,19 @@
-
 // --- CONFIGURATION ---
 // Change this to make the numbers spin faster/slower (in milliseconds)
 const SPIN_SPEED = 50; 
-const build = "build a5R326A"
-const version = "Artyom's Casino v0.4.3a - Emergency maintainance: Complete #2/4. Undergoing Emergency Maintainance #3"
+const build = "build a9R326B"
+const version = "Artyom's Casino v0.4.4a - Emergency maintainance: Complete #3/4. Undergoing Emergency Maintainance #4"
 
 
 // --- STATE VARIABLES ---
 let isSpinning = false;
 let spinTimer = null; // This holds the "interval" ID
-let ticketsAmount = 10;
 let storeOpen = false;
 let debugOpen = false;
+let settingsOpen = false;
 let gasinoTimes = 0;
+let savedTickets = localStorage.getItem("artyomTickets");
+let ticketsAmount = savedTickets !== null ? parseInt(savedTickets) : 10;
 // let passwordEntered = document.getElementById("debug-password").textv
 // let gasinoActive = false;
 
@@ -48,12 +49,29 @@ const passwordContainer = document.getElementById("debug-password-container");
 const debugInterface = document.getElementById("debug-interface");
 const debugPasswordTitle = document.getElementById("debug-password-title");
 
+document.addEventListener("DOMContentLoaded", () => {
+    const ticketsMultiplier = document.getElementById("tickets-multiplier");
+    if (ticketsMultiplier) {
+        ticketsMultiplier.textContent = "x " + ticketsAmount;
+    }
+});
+
 // The question mark checks if it exists before trying to access .textContent
 subtitleVersion?.setAttribute('textContent', version); // Or simply:
 if (subtitleVersion) subtitleVersion.textContent = version;
 
 if (versionText) versionText.textContent = version;
 if (buildText) buildText.textContent = build;
+
+function saveGame() {
+    localStorage.setItem("artyomTickets", ticketsAmount);
+}
+
+function deleteGame() {
+    ticketsAmount = 10;
+    saveGame();
+    ticketsMultiplier.textContent = "x " + ticketsAmount;
+}
 
 function proceed() {
     if (checkbox.checked) {
@@ -125,18 +143,34 @@ function gasino() {
 function purchaseTicket(amount) {
     ticketsAmount += amount;
     ticketsMultiplier.textContent = "x " + ticketsAmount;
+    saveGame();
 }
 
 function storeButton() {
     if (storeOpen == true) {
         document.querySelector(".store").style.display = "none";
         storeOpen = false;
-
     }
     else {
         // alert("Refresh the page to open the store");
         document.querySelector(".store").style.display = "block";
         storeOpen = true;
+        settingsOpen = false;
+        document.querySelector(".settings").style.display = "none";
+    }
+}
+
+function settingsButton() {
+    if (settingsOpen == true) {
+        document.querySelector(".settings").style.display = "none";
+        settingsOpen = false;
+    }
+    else {
+        // alert("Refresh the page to open the store");
+        document.querySelector(".settings").style.display = "flex";
+        settingsOpen = true;
+        storeOpen = false;
+        document.querySelector(".store").style.display = "none";
     }
 }
 
@@ -219,6 +253,7 @@ function startGame() {
         messageEl.innerText = "Spinning...";
         // console.log(ticketsAmount);
         ticketsAmount -= 1;
+        saveGame();
         // console.log(ticketsAmount);
         ticketsMultiplier.textContent = "x " + ticketsAmount;
 
@@ -263,11 +298,13 @@ function checkWin() {
 
         if (rngCheck === 777) {
             purchaseTicket(777777777);
+            saveGame();
             messageEl.innerText = "JACKPOT!!!\nYOU DEFIED THE ODDS!\nPRIZE: 777,777,777 TICKETS";
             messageEl.className = "winner";
             alert("REAL JACKPOT!");
         } else {
             purchaseTicket(77);
+            saveGame();
             messageEl.innerText = "7-7-7!\n(But failed the 1/1,000,000 RNG check)\nComplimentary prize: 77 tickets";
         }
     } else {
