@@ -1,7 +1,7 @@
 // --- CONFIGURATION ---
 // Change this to make the numbers spin faster/slower (in milliseconds)
 const SPIN_SPEED = 50; 
-const build = "build a13R326D"
+const build = "build a13R326E"
 const version = "Artyom's Casino v0.4.5a - Emergency maintainance: Complete #4/5. Undergoing Emergency Maintainance #5"
 
 
@@ -61,6 +61,7 @@ const googlepayCheckbox = document.getElementById("googlepay-checkbox");
 const adCheckbox = document.getElementById("ad-checkbox");
 const giftcardCheckbox = document.getElementById("giftcard-checkbox");
 const checkoutPrice = document.getElementById("checkout-price");
+const debugTicketsInput = document.getElementById("debug-tickets-input");
 
 // const shopItems = [
 //     {name: "1 ticket", value: 1, price: 0.10, img: "ticket.png"},
@@ -365,6 +366,12 @@ function debug3() {
             root.style.backgroundColor = "#1a1a1a";
         }, 1000);
     }
+}
+
+function debug4() {
+    ticketsAmount = debugTicketsInput.value;
+    saveGame();
+    ticketsMultiplier.textContent = "x " + ticketsAmount;
 }
 
 function startGame() {
