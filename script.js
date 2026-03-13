@@ -1,8 +1,8 @@
 // --- CONFIGURATION ---
 // Change this to make the numbers spin faster/slower (in milliseconds)
 const SPIN_SPEED = 50; 
-const build = "build a10R326A"
-const version = "Artyom's Casino v0.4.4a - Emergency maintainance: Complete #3/4. Undergoing Emergency Maintainance #4"
+const build = "build a13R326D"
+const version = "Artyom's Casino v0.4.5a - Emergency maintainance: Complete #4/5. Undergoing Emergency Maintainance #5"
 
 
 // --- STATE VARIABLES ---
@@ -14,6 +14,12 @@ let settingsOpen = false;
 let gasinoTimes = 0;
 let savedTickets = localStorage.getItem("artyomTickets");
 let ticketsAmount = savedTickets !== null ? parseInt(savedTickets) : 10;
+let selectedTickets = localStorage.getItem("purchaseItem");
+
+if (selectedTickets == null) {
+    selectedTickets.localStorage.setItem("purchaseItem", 0);
+}
+
 // let passwordEntered = document.getElementById("debug-password").textv
 // let gasinoActive = false;
 
@@ -48,6 +54,26 @@ const passwordField = document.getElementById("debug-password");
 const passwordContainer = document.getElementById("debug-password-container");
 const debugInterface = document.getElementById("debug-interface");
 const debugPasswordTitle = document.getElementById("debug-password-title");
+const paypalCheckbox = document.getElementById("paypal-checkbox");
+const creditcardCheckbox = document.getElementById("creditcard-checkbox");
+const cryptocurrencyCheckbox = document.getElementById("cryptocurrency-checkbox");
+const googlepayCheckbox = document.getElementById("googlepay-checkbox");
+const adCheckbox = document.getElementById("ad-checkbox");
+const giftcardCheckbox = document.getElementById("giftcard-checkbox");
+const checkoutPrice = document.getElementById("checkout-price");
+
+// const shopItems = [
+//     {name: "1 ticket", value: 1, price: 0.10, img: "ticket.png"},
+//     {name: "5 tickets", value: 5, price: 0.49, img: "tickets.png"},
+//     {name: "10 tickets", value: 10, price: 0.97, img: "10tickets.png"},
+//     {name: "50 tickets", value: 50, price: 4.67, img: "50tickets.png"},
+//     {name: "100 tickets", value: 100, price: 7, img: "100tickets.png"},
+//     {name: "250 tickets", value: 250, price: 250, img: "250tickets.png"},
+//     {name: "500 tickets", value: 500, price: 500, img: "500tickets.png"},
+//     {name: "1000 tickets", value: 1000, price: 1000, img: "1000tickets.png"},
+//     {name: "5000 tickets", value: 5000, price: 5000, img: "5000tickets.png"},
+//     {name: "10000 tickets", value: 10000, price: 10000, img: "10000tickets.png"}
+// ]
 
 document.addEventListener("DOMContentLoaded", () => {
     const ticketsMultiplier = document.getElementById("tickets-multiplier");
@@ -62,6 +88,15 @@ if (subtitleVersion) subtitleVersion.textContent = version;
 
 if (versionText) versionText.textContent = version;
 if (buildText) buildText.textContent = build;
+
+function selectTickets(amount) {
+    localStorage.setItem("purchaseItem", amount);
+    selectedTickets = amount;
+    alert("Item added to cart");
+}
+
+checkoutPrice?.setAttribute('textContent', "Total price: " + String(selectedTickets / 100) + " USD"); // Or simply:
+if (checkoutPrice) checkoutPrice.textContent = "Total price: " + String(selectedTickets / 100) + " USD";
 
 function saveGame() {
     localStorage.setItem("artyomTickets", ticketsAmount);
@@ -82,14 +117,101 @@ function proceed() {
     }
 } 
 
-function tickBox() {
-    if (checkbox.checked) {
-        checkbox.checked = false;
+function tickBox(boxTag) {
+    console.log(boxTag);
+    let box = document.getElementById(boxTag);
+    if (box.checked) {
+        box.checked = false;
     }
     else {
-        checkbox.checked = true;
+        box.checked = true;
     }
 }
+
+function tickOneBox(boxTag, boxTag2, boxTag3, boxTag4, boxTag5, boxTag6) {
+    let box = document.getElementById(boxTag);
+    let box2 = document.getElementById(boxTag2);
+    let box3 = document.getElementById(boxTag3);
+    let box4 = document.getElementById(boxTag4);
+    let box5 = document.getElementById(boxTag5);
+    let box6 = document.getElementById(boxTag6);
+    console.log("boxTag");
+    
+    if (box.checked) {
+        box.checked = false;
+    } else {
+        box.checked = true;
+    }
+
+    if (box.checked) {
+        box2.checked = false;
+        box3.checked = false;
+        box4.checked = false;
+        box5.checked = false;
+        box6.checked = false;
+    }
+}
+
+function untickAll(keep) {
+    if (keep != "paypal-checkbox") {
+        paypalCheckbox.checked = false;
+    }
+    if (keep != "creditcard-checkbox") {
+        creditcardCheckbox.checked = false;
+    }
+    if (keep != "cryptocurrency-checkbox") {
+        cryptocurrencyCheckbox.checked = false;
+    }
+    if (keep != "googlepay-checkbox") {
+        googlepayCheckbox.checked = false;
+    }
+    if (keep != "ad-checkbox") {
+        adCheckbox.checked = false;
+    }
+    if (keep != "giftcard-checkbox") {
+        giftcardCheckbox.checked = false;
+    }
+}
+
+function getSelectedCheckbox() {
+    if (paypalCheckbox.checked) {
+        // alert("PayPal");
+        window.location.href = "alert.html";
+    } else if (creditcardCheckbox.checked) {
+        // alert("Credit Card");
+        window.location.href = "alert.html";
+    } else if (cryptocurrencyCheckbox.checked) {
+        // alert("Cryptocurrency");
+        window.location.href = "alert.html";
+    } else if (googlepayCheckbox.checked) {
+        // alert("Google Pay");
+        window.location.href = "alert.html";
+    } else if (adCheckbox.checked) {
+        // console.log(ticketsAmount);
+        // console.log(selectedTickets);
+        purchaseTicket(parseInt(selectedTickets));
+        selectedTickets = localStorage.setItem("purchaseItem", 0);
+        // console.log(ticketsAmount);
+        saveGame();
+        alert("Thank you for your purchase!")
+        window.location.href = "main.html";
+    } else if (giftcardCheckbox.checked) {
+        alert("Coming soon!");
+    } else {
+        alert("Please select a payment method.");
+    }
+}
+
+function proceedCheckbox() {
+    if (checkbox.checked) {
+        getSelectedCheckbox();
+    }
+    else {
+        alert("Check the box to accept the disclaimer")
+    }
+} 
+
+
 
 function enterPassword() {
     if (passwordField.value == "Steak") {
@@ -142,7 +264,7 @@ function gasino() {
 
 function purchaseTicket(amount) {
     ticketsAmount += amount;
-    ticketsMultiplier.textContent = "x " + ticketsAmount;
+    // ticketsMultiplier.textContent = "x " + ticketsAmount;
     saveGame();
 }
 

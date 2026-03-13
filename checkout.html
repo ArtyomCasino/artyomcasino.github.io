@@ -394,6 +394,7 @@
         .link {
             text-decoration: none;
             transition: all 0.1s ease-in-out;
+            cursor: pointer;
         }
 
         .link:hover {
@@ -418,163 +419,183 @@
             margin-bottom: 15px;
         }
 
-        .store-checkout-container {
+        .payment-ways {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
+            height: 70%;
+        }
+
+        .payment-ways-top {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .payment-ways-bottom {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .payment-way {
+            display: flex;
+            position: static;
+            background-color: #bbb;
+            box-shadow: 0 0 20px #bbb;
+            padding: 2px 25px;
+            width: 350px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            border-radius: 15px;
+            margin: 5px;
+        }
+
+        .bitcoin-icon {
+            width: 150px;
+            height: 150px;
+        }
+
+        .credit-card-icon {
+            width: 150px;
+            height: 150px;
+        }
+
+        .gift-card-icon {
+            width: 150px;
+            height: 150px;
+        }
+
+        .ad-icon {
+            width: 150px;
+            height: 150px;
+        }
+
+        .paypal-icon {
+            width: 350px;
+            height: 100px;
+        }
+
+        .google-pay-icon {
+            width: 250px;
+            height: 100px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .checkbox {
+            margin-right: 15px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .checkbox-text {
+            cursor: pointer;
+        }
+
+        .TOS-proceed-button {
+            margin-left: 5px;
+            color: #fff;
+        }
+
+        .TOS-proceed-button:hover {
+            color: red;
+        }
+
+        #proceedButton {
+            text-decoration: none;
+            color: #fff;
+            background-color: #777;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
             font-family: Arial, Helvetica, sans-serif;
-            position: absolute;
-            left: 25px;
-            top: 25px;
         }
 
-        .store-cart-icon {
-            max-height: 70px;
-            max-width: 70px;
+        #proceedButton:hover {
+            text-decoration: underline;
         }
 
-        .img-1000-tickets {
-            max-width: 120px;
-            max-height: 80px;
-            width: fit-content;
-            height: fit-content;
+        .view-tos {
+            color: #fff;
+            margin-top: 15px;
         }
+
 
         /* Special class for winning text */
         .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
     </style>
 </head>
 <body>
-    <div class="debug">
-        <div class="debug-header">
-            <a href="#" class="debug-text" id="debug-close" onclick="debugButton()">X</a>
-            <h2 class="debug-title">Debug</h2>
-        </div>
-        <div id="debug-password-container">
-            <h3 id="debug-password-title">Insert password</h3>
-            <input type="password" id="debug-password" autocomplete="new-password">
-            <a href="#" class="debug-text link" id="debug-proceed" onclick="enterPassword()">Proceed</a>
-        </div>
-        <div id="debug-interface">
-            <h3 class="debug-text">Welcome to debug menu!</h3>
-            <h4 class="debug-text debug-subsubtitle">Debug menu coming soon in v0.4.6a! Stay tuned!</h4>
-            <a href="#" class="debug-text debug-button link" onclick="debug1()">777</a>
-            <a href="#" class="debug-text debug-button link" onclick="debug2()">777 with no win</a>
-            <a href="#" class="debug-text debug-button link" onclick="debug3()">777 with 1/1,000,000 win</a>
-            <p class="debug-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora cumque necessitatibus animi minima velit natus voluptates hic iure, blanditiis voluptatem atque. Consequatur consectetur recusandae qui veritatis fugiat harum facere quas.</p>
-        </div>
-    </div>
-
-    <div class="settings-container">
-        <a href="#" class="settings-button" onclick="settingsButton()"><img src="settings.png" alt="Settings-icon" class="settings-icon"></a>
-    </div>
-
     <div class="wrapper">
-    <div class="settings">
-        <div class="settings-header">
-            <h2 class="settings-title">Settings</h2>
-            <a href="#" class="settings-text" id="settings-close" onclick="settingsButton()">X</a>
-        </div>
-        <div class="settings-interface">
-            <h3 class="settings-text">Welcome to settings menu!<br>Refresh coming in v0.4.6a! Stay tuned!</h3>
-            <div class="settings-button-container">
-                <a href="#" onclick="deleteGame()" class="settings-text settings-button settings-important link">Delete all data</a>
-                <a href="https://github.com/ArtyomCasino/artyomcasino.github.io" class="settings-text settings-button link">Our Github</a>
-                <a href="https://forms.gle/t9c5eTTyNTLFfbWR6" class="settings-text settings-button link">Report bugs</a>
+        <h1 class="machine-title">Artyom's casino checkout</h1>
+        <h2 id="checkout-price">Total price: Error -1</h2>
+        <h2 class="checkout-subtitle">Choose your way of payment</h2>
+        <div class="payment-ways">
+            <div class="payment-ways-top">
+                <div class="payment-way">
+                    <img src="PayPal.png" alt="PayPal" class="paypal-icon">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="paypal-checkbox" class="checkbox" onclick="untickAll('paypal-checkbox')">
+                        <a class="payment-title link" onclick="tickOneBox('paypal-checkbox', 'creditcard-checkbox', 'cryptocurrency-checkbox', 'googlepay-checkbox', 'ad-checkbox', 'giftcard-checkbox')">Checkout with PayPal</a>
+                    </div>
+                </div>
+                <div class="payment-way">
+                    <img src="Credit card.png" alt="Credit card" class="credit-card-icon">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="creditcard-checkbox" class="checkbox" onclick="untickAll('creditcard-checkbox')">
+                        <a class="payment-title link" onclick="tickOneBox('creditcard-checkbox', 'paypal-checkbox', 'cryptocurrency-checkbox', 'googlepay-checkbox', 'ad-checkbox', 'giftcard-checkbox')">Checkout with Credit Card</a>
+                    </div>
+                </div>
+                <div class="payment-way">
+                    <img src="Bitcoin.png" alt="Bitcoin" class="bitcoin-icon">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="cryptocurrency-checkbox" class="checkbox" onclick="untickAll('cryptocurrency-checkbox')">
+                        <a class="payment-title link" onclick="tickOneBox('cryptocurrency-checkbox', 'creditcard-checkbox', 'googlepay-checkbox', 'paypal-checkbox', 'ad-checkbox', 'giftcard-checkbox')">Checkout with cryptocurrency</a>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-ways-bottom">
+                <div class="payment-way">
+                    <img src="Google Pay.webp" alt="Google pay logo" class="google-pay-icon">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="googlepay-checkbox" class="checkbox" onclick="untickAll('googlepay-checkbox')">
+                        <a class="payment-title link" onclick="tickOneBox('googlepay-checkbox', 'paypal-checkbox', 'creditcard-checkbox', 'cryptocurrency-checkbox', 'ad-checkbox', 'giftcard-checkbox')">Checkout with Google/Apple pay</a>
+                    </div>
+                </div>
+                <div class="payment-way">
+                    <img src="ad.webp" alt="Ad icon" class="ad-icon">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="ad-checkbox" class="checkbox" onclick="untickAll('ad-checkbox')">
+                        <a class="payment-title link" onclick="tickOneBox('ad-checkbox', 'googlepay-checkbox', 'creditcard-checkbox', 'cryptocurrency-checkbox', 'paypal-checkbox', 'giftcard-checkbox')">Watch ads to checkout</a>
+                    </div>
+                </div>
+                <div class="payment-way">
+                    <img src="Gift card.png" alt="Gift card" class="gift-card-icon">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="giftcard-checkbox" class="checkbox" onclick="untickAll('giftcard-checkbox')">
+                        <a class="payment-title link" onclick="tickOneBox('giftcard-checkbox', 'ad-checkbox', 'googlepay-checkbox', 'creditcard-checkbox', 'paypal-checkbox', 'cryptocurrency-checkbox')">Checkout with Gift card/Promocode</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="checkbox" class="checkbox">
+            <a class="checkbox-text" onclick='tickBox("checkbox")'>I accept the <a href="index.html" class="TOS-proceed-button link">TOS</a></a>
+        </div>
+        <a href="#" class="link" id="proceedButton" onclick="proceedCheckbox()">Proceed</a>
+        <a href="index.html" class="view-tos link">view TOS</a>
     </div>
-        <div class="store">
-            <div class="store-header">
-                <div class="store-checkout-container">
-                    <a href="cart.html"><img src="shopping-cart.webp" alt="Basket" class="store-cart-icon store-icon"></a>
-                    <a href="cart.html" class="Purchase-button link">Your cart</a>
-                </div>
-                <h2 class="store-title">Store</h2>
-                <a href="#" class="Purchase-button close-button" id="close" onclick="storeButton()">X</a>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="selectTickets(1)"><img src="Ticket.png" alt="Ticket" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-1-ticket" onclick="selectTickets(1)">1 ticket</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="selectTickets(5)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-5-tickets" onclick="selectTickets(5)">5 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="selectTickets(10)"><img src="10 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-10-tickets" onclick="purchaseTicket(10)">10 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="selectTickets(50)"><img src="15 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-50-tickets" onclick="selectTickets(50)">50 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="selectTickets(100)"><img src="100 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-100-tickets" onclick="selectTickets(100)">100 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="selectTickets(250)"><img src="250 Tickets.png" alt="Tickets" class="tickets img-250-tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-250-tickets" onclick="selectTickets(250)">250 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="selectTickets(500)"><img src="500 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-500-tickets" onclick="selectTickets(500)">500 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="selectTickets(1000)"><img src="1000 Tickets.png" alt="Tickets" class="tickets img-1000-tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-1000-tickets" onclick="selectTickets(1000)">1000 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="selectTickets(5000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-5000-tickets" onclick="selectTickets(5000)">5000 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="selectTickets(10000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-10000-tickets" onclick="selectTickets(10000)">10000 tickets</a>
-                </div>
-            </div>
-            <div class="Purchase-container">
-                <a href="#" class="Purchase-button link" id="Gasino" onclick="gasino()">Gas ⛽</a>
-            </div>
-        </div>
-        <div class="header">
-            <div class="store-button-container">
-                <a href="#" id="storeButton" onclick="storeButton()"><img src="shopping-cart.webp" alt="Shopping cart" class="store-icon"></a>
-                <a href="#" id="storeButton" class="link" onclick="storeButton()">Store!</a>
-            </div>
-
-            <div class="tickets-counter">
-                <img src="Tickets.png" alt="[Tickets]" class="tickets">
-                <p id="tickets-multiplier">x 10</p>
-            </div>
-        </div>
-
-        <div class="machine-container">
-            <h1 id="machine-title">🎰 The Artyom Casino 🎰</h1>
-            
-            <div id="message">Welcome to Artyom's casino!<br>Press SPIN to start!</div>
-
-            <div class="slot-container">
-                <div class="slots">
-                    <div id="reel1" class="reel">7</div>
-                    <div id="reel2" class="reel">7</div>
-                    <div id="reel3" class="reel">7</div>
-                </div>
-
-                <button id="actionBtn" onclick="toggleGame()">SPIN</button>
-        </div>
     </div>
-</div>
 
     <div class="version-container">
         <p class="version" id="version">Error -1</p>

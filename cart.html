@@ -418,26 +418,36 @@
             margin-bottom: 15px;
         }
 
-        .store-checkout-container {
+        .items {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            width: 50px;
             align-items: center;
-            font-family: Arial, Helvetica, sans-serif;
-            position: absolute;
-            left: 25px;
-            top: 25px;
+            justify-content: center;
+            margin: 15px;
         }
 
-        .store-cart-icon {
-            max-height: 70px;
-            max-width: 70px;
+        .multiplier {
+            margin-right: 5px;
         }
 
-        .img-1000-tickets {
-            max-width: 120px;
-            max-height: 80px;
+        .cart-subtitle {
+            margin-top: 25px;
+        }
+
+        .checkout-button {
+            display: block;
             width: fit-content;
-            height: fit-content;
+            text-decoration: none;
+            color: #fff;
+            background-color: #777;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 35px auto;
+            position: static;
         }
 
         /* Special class for winning text */
@@ -445,136 +455,19 @@
     </style>
 </head>
 <body>
-    <div class="debug">
-        <div class="debug-header">
-            <a href="#" class="debug-text" id="debug-close" onclick="debugButton()">X</a>
-            <h2 class="debug-title">Debug</h2>
-        </div>
-        <div id="debug-password-container">
-            <h3 id="debug-password-title">Insert password</h3>
-            <input type="password" id="debug-password" autocomplete="new-password">
-            <a href="#" class="debug-text link" id="debug-proceed" onclick="enterPassword()">Proceed</a>
-        </div>
-        <div id="debug-interface">
-            <h3 class="debug-text">Welcome to debug menu!</h3>
-            <h4 class="debug-text debug-subsubtitle">Debug menu coming soon in v0.4.6a! Stay tuned!</h4>
-            <a href="#" class="debug-text debug-button link" onclick="debug1()">777</a>
-            <a href="#" class="debug-text debug-button link" onclick="debug2()">777 with no win</a>
-            <a href="#" class="debug-text debug-button link" onclick="debug3()">777 with 1/1,000,000 win</a>
-            <p class="debug-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora cumque necessitatibus animi minima velit natus voluptates hic iure, blanditiis voluptatem atque. Consequatur consectetur recusandae qui veritatis fugiat harum facere quas.</p>
-        </div>
-    </div>
-
-    <div class="settings-container">
-        <a href="#" class="settings-button" onclick="settingsButton()"><img src="settings.png" alt="Settings-icon" class="settings-icon"></a>
-    </div>
-
     <div class="wrapper">
-    <div class="settings">
-        <div class="settings-header">
-            <h2 class="settings-title">Settings</h2>
-            <a href="#" class="settings-text" id="settings-close" onclick="settingsButton()">X</a>
+        <h1 class="cart-title">Artyom's casino checkout</h1>
+        <h2 class="cart-subtitle">Items:</h2>
+        <div class="items">
+            <p class="multiplier">1x </p>
+            <p class="item">Tickets</p>
         </div>
-        <div class="settings-interface">
-            <h3 class="settings-text">Welcome to settings menu!<br>Refresh coming in v0.4.6a! Stay tuned!</h3>
-            <div class="settings-button-container">
-                <a href="#" onclick="deleteGame()" class="settings-text settings-button settings-important link">Delete all data</a>
-                <a href="https://github.com/ArtyomCasino/artyomcasino.github.io" class="settings-text settings-button link">Our Github</a>
-                <a href="https://forms.gle/t9c5eTTyNTLFfbWR6" class="settings-text settings-button link">Report bugs</a>
-            </div>
+        <div class="total">
+            <h2 id="checkout-price">Total: Error -1</h2>
+            <a href="checkout.html" class="checkout-button link">Pay now</a>
         </div>
+        <p class="ps">P.s. Redesign coming soon in v0.4.6a! Stay tuned!</p>
     </div>
-        <div class="store">
-            <div class="store-header">
-                <div class="store-checkout-container">
-                    <a href="cart.html"><img src="shopping-cart.webp" alt="Basket" class="store-cart-icon store-icon"></a>
-                    <a href="cart.html" class="Purchase-button link">Your cart</a>
-                </div>
-                <h2 class="store-title">Store</h2>
-                <a href="#" class="Purchase-button close-button" id="close" onclick="storeButton()">X</a>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-1-ticket" onclick="selectTickets(1)"><img src="Ticket.png" alt="Ticket" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-1-ticket" onclick="selectTickets(1)">1 ticket</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-5-tickets" onclick="selectTickets(5)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-5-tickets" onclick="selectTickets(5)">5 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-10-tickets" onclick="selectTickets(10)"><img src="10 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-10-tickets" onclick="purchaseTicket(10)">10 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-50-tickets" onclick="selectTickets(50)"><img src="15 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-50-tickets" onclick="selectTickets(50)">50 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-100-tickets" onclick="selectTickets(100)"><img src="100 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-100-tickets" onclick="selectTickets(100)">100 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-250-tickets" onclick="selectTickets(250)"><img src="250 Tickets.png" alt="Tickets" class="tickets img-250-tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-250-tickets" onclick="selectTickets(250)">250 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-500-tickets" onclick="selectTickets(500)"><img src="500 Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-500-tickets" onclick="selectTickets(500)">500 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-1000-tickets" onclick="selectTickets(1000)"><img src="1000 Tickets.png" alt="Tickets" class="tickets img-1000-tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-1000-tickets" onclick="selectTickets(1000)">1000 tickets</a>
-                </div>
-            </div>
-            <div class="outer-purchase-container">
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-5000-tickets" onclick="selectTickets(5000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-5000-tickets" onclick="selectTickets(5000)">5000 tickets</a>
-                </div>
-                <div class="Purchase-container">
-                    <a href="#" class="Purchase-button" id="Purchase-10000-tickets" onclick="selectTickets(10000)"><img src="Tickets.png" alt="Tickets" class="tickets"></a>
-                    <a href="#" class="Purchase-button link" id="Purchase-10000-tickets" onclick="selectTickets(10000)">10000 tickets</a>
-                </div>
-            </div>
-            <div class="Purchase-container">
-                <a href="#" class="Purchase-button link" id="Gasino" onclick="gasino()">Gas ⛽</a>
-            </div>
-        </div>
-        <div class="header">
-            <div class="store-button-container">
-                <a href="#" id="storeButton" onclick="storeButton()"><img src="shopping-cart.webp" alt="Shopping cart" class="store-icon"></a>
-                <a href="#" id="storeButton" class="link" onclick="storeButton()">Store!</a>
-            </div>
-
-            <div class="tickets-counter">
-                <img src="Tickets.png" alt="[Tickets]" class="tickets">
-                <p id="tickets-multiplier">x 10</p>
-            </div>
-        </div>
-
-        <div class="machine-container">
-            <h1 id="machine-title">🎰 The Artyom Casino 🎰</h1>
-            
-            <div id="message">Welcome to Artyom's casino!<br>Press SPIN to start!</div>
-
-            <div class="slot-container">
-                <div class="slots">
-                    <div id="reel1" class="reel">7</div>
-                    <div id="reel2" class="reel">7</div>
-                    <div id="reel3" class="reel">7</div>
-                </div>
-
-                <button id="actionBtn" onclick="toggleGame()">SPIN</button>
-        </div>
-    </div>
-</div>
 
     <div class="version-container">
         <p class="version" id="version">Error -1</p>
