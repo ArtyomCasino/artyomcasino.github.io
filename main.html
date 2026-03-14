@@ -449,6 +449,18 @@
             height: fit-content;
         }
 
+        #roadmap {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            text-align: start;
+            transition: all 0.1s ease-in-out;
+        }
+
+        #roadmap:hover {
+            text-decoration: underline;
+        }
+
         /* Special class for winning text */
         .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
     </style>
@@ -587,7 +599,10 @@
 </div>
 
     <div class="version-container">
-        <p class="version" id="version">Error -1</p>
+        <div class="build-container">
+            <a href="roadmap.html" id="roadmap">Roadmap</a>
+            <p class="version" id="version">Error -1</p>
+        </div>
         <div class="build-container">
             <a href="patch-notes.html" id="patch-notes">Patch notes</a>
             <p class="version build" id="build">Error -1</p>

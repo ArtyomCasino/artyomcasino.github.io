@@ -1,7 +1,7 @@
 // --- CONFIGURATION ---
 // Change this to make the numbers spin faster/slower (in milliseconds)
 const SPIN_SPEED = 50; 
-const build = "build a13R326E"
+const build = "build a14R326B"
 const version = "Artyom's Casino v0.4.5a - Emergency maintainance: Complete #4/5. Undergoing Emergency Maintainance #5"
 
 
