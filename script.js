@@ -17,7 +17,8 @@ let ticketsAmount = savedTickets !== null ? parseInt(savedTickets) : 10;
 let selectedTickets = localStorage.getItem("purchaseItem");
 
 if (selectedTickets == null) {
-    selectedTickets.localStorage.setItem("purchaseItem", 0);
+    localStorage.setItem("purchaseItem", 0);
+    selectedTickets = 0;
 }
 
 // let passwordEntered = document.getElementById("debug-password").textv
